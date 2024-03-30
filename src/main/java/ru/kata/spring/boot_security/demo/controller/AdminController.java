@@ -2,10 +2,7 @@ package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
@@ -27,20 +24,15 @@ public class AdminController {
     @GetMapping
     public String printWelcome(ModelMap model) {
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("roles",roleService.getAllRoles());
+        model.addAttribute("newUser", new User());
         return "admin";
     }
 
-    @GetMapping(value = "/delete")
-    public String delete(Long id) {
+    @PostMapping(value = "/delete/{id}")
+    public String delete( @PathVariable Long id) {
         userService.deleteUserByID(id);
         return "redirect:/admin";
-    }
-
-    @GetMapping(value = "/update")
-    public String update(ModelMap modelMap, Long id) {
-        modelMap.addAttribute("user", userService.getUserByID(id));
-
-        return "update";
     }
 
     @PostMapping(value = "/save")
@@ -49,17 +41,12 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping(value = "/save-update")
+    @PostMapping(value = "/update/{id}")
     public String saveUpdate(@ModelAttribute("user") User user) {
         userService.updateUser(user);
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/add")
-    public String create(ModelMap modelMap) {
-        modelMap.addAttribute("user", new User())
-                .addAttribute("allRoles", roleService.getAllRoles());
-        return "add";
-    }
+
 
 }
