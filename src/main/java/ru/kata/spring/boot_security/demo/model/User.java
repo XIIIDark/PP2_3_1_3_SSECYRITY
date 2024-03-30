@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @Entity
-@Data
+
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String firstName;
 
     @Column(name = "last_name")
@@ -40,7 +40,7 @@ public class User implements UserDetails {
     @Column
     private String passwordConfirm;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Fetch(FetchMode.JOIN)
     @JoinTable(
@@ -95,5 +95,55 @@ public class User implements UserDetails {
         return true;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 }

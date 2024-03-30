@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -25,42 +26,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/admin")
-    public String printWelcome(ModelMap model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "admin";
-    }
-
-    @GetMapping(value = "/delete")
-    public String delete(Long id) {
-        userService.deleteUserByID(id);
-        return "redirect:/admin";
-    }
-
-    @GetMapping(value = "/update")
-    public String update(ModelMap modelMap, Long id) {
-        modelMap.addAttribute("user", userService.getUserByID(id));
-        return "update";
-    }
-
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("user") User user) {
-        userService.updateUser(user);
-        return "redirect:/admin";
-    }
-
-    @GetMapping(value = "/add")
-    public String create(ModelMap modelMap) {
-        modelMap.addAttribute("user", new User())
-                .addAttribute("allRoles", new ArrayList<Role>(Arrays.asList(
-                        new Role(1L, "ROLE_ADMIN"),
-                        new Role(2L,"ROLE_USER")
-                        )));
-
-        return "add";
-    }
-
-    @GetMapping(value = "/user")
+    @GetMapping(value = "/")
     public String userPage(HttpSession httpSession) {
         httpSession.getAttribute("user");
         System.out.println(httpSession.getAttribute("user"));

@@ -20,13 +20,17 @@ import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
 
-    @Autowired
-    private UserServiceImp userServiceImp;
+    private final UserServiceImp userServiceImp;
 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
+    public WebSecurityConfig(
+            SuccessUserHandler successUserHandler,
+            UserServiceImp userServiceImp,
+            BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.successUserHandler = successUserHandler;
+        this.userServiceImp = userServiceImp;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login").not().fullyAuthenticated()
                 .antMatchers("/user").hasRole("USER")
-                .antMatchers("/admin", "/add", "/save").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
@@ -50,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userServiceImp).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userServiceImp).passwordEncoder(bCryptPasswordEncoder);
 
     }
 

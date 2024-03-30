@@ -15,7 +15,7 @@
         <td><h1> First Name </h1></td>
         <td><h1> Last Name </h1></td>
         <td><h1> Email </h1></td>
-        <td><h1><a th:href="@{add}">Add</a></h1></td>
+        <td><h1><a th:href="@{/admin/add}">Add</a></h1></td>
     </tr>
     <th:block th:each="user : ${users}">
         <tr style="border: 2px solid #dddddd; text-align: left; padding: 8px;">
@@ -23,8 +23,8 @@
             <td th:text="${user.firstName}"></td>
             <td th:text="${user.lastName}"></td>
             <td th:text="${user.email}"></td>
-            <td><a th:href="@{update(id=${user.id})}">Edit</a></td>
-            <td><a th:href="@{delete(id=${user.id})}">Delete</a></td>
+            <td><a th:href="@{admin/update(id=${user.id})}">Edit</a></td>
+            <td><a th:href="@{admin/delete(id=${user.id})}">Delete</a></td>
         </tr>
     </th:block>
 </table>

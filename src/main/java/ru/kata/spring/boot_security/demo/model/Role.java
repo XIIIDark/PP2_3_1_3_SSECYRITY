@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 
 @Entity
-@Data
+
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
 
@@ -15,7 +15,7 @@ public class Role implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String nameRole;
 
     public Role(long id, String nameRole) {
@@ -39,5 +39,21 @@ public class Role implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return nameRole;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNameRole() {
+        return nameRole;
+    }
+
+    public void setNameRole(String nameRole) {
+        this.nameRole = nameRole;
     }
 }

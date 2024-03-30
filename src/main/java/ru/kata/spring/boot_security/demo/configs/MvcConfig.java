@@ -12,8 +12,5 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/user").setViewName("user");
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 }

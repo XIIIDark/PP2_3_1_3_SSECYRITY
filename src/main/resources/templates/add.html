@@ -12,7 +12,7 @@
 
 <div>
     <h2>Update User</h2>
-    <form action="#" th:action="@{/save}" th:object="${user}" method="POST">
+    <form action="#" th:action="@{/admin/save}" th:object="${user}" method="POST">
         <label> firstname<input type="text" th:field="*{firstName}"></label><br>
 
         <label> lastname<input type="text" th:field="*{lastName}"></label><br>

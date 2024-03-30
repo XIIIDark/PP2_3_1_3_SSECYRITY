@@ -16,11 +16,14 @@ import java.util.List;
 @Service
 public class UserServiceImp implements UserService, UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserServiceImp(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     public List<User> getAllUsers() {
@@ -48,8 +51,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Override
     @Transactional
     public void createUser(User user) {
-
-
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
