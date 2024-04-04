@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -16,7 +17,7 @@ import java.util.List;
 
 
 @Entity
-
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.PUBLIC_ONLY)
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -147,4 +148,6 @@ public class User implements UserDetails {
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
+
+
 }

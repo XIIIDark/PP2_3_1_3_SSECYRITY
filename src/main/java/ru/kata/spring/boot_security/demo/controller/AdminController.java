@@ -26,7 +26,7 @@ public class AdminController {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("roles",roleService.getAllRoles());
         model.addAttribute("newUser", new User());
-        return "admin";
+        return "index";
     }
 
     @PostMapping(value = "/delete/{id}")

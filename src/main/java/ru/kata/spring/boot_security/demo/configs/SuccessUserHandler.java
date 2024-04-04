@@ -21,7 +21,7 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
         User user = (User) authentication.getPrincipal();
         httpServletRequest.getSession().setAttribute("user", user);
         if (roles.contains("ROLE_ADMIN")) {
-            httpServletResponse.sendRedirect("/admin");
+            httpServletResponse.sendRedirect("/");
         } else {
             httpServletResponse.sendRedirect("/user");
         }

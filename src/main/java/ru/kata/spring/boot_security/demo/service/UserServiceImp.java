@@ -25,20 +25,23 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
+    @Transactional
     public User getUserByID(Long id) {
         return userRepository.getById(id);
     }
 
     @Override
     @Transactional
-    public void updateUser(User user) {
+    public User updateUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
+        return user;
     }
 
     @Override
@@ -49,9 +52,9 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void createUser(User user) {
+    public User createUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
 
