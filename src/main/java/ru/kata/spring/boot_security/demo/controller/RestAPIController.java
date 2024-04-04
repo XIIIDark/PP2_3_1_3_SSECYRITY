@@ -15,12 +15,12 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 public class RestAPIController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private RoleService roleService;
+    private final RoleService roleService;
 
     public RestAPIController(UserService userService, RoleService roleService) {
         this.userService = userService;
@@ -29,8 +29,6 @@ public class RestAPIController {
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
-
-
         return userService.getAllUsers();
     }
 
@@ -60,10 +58,9 @@ public class RestAPIController {
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<HttpStatus> deleteUserById(@PathVariable Long id) {
-        System.out.println(id);
         userService.deleteUserByID(id);
         return new ResponseEntity<>(HttpStatus.OK);
-    }
+}
 
     @GetMapping("/roles")
     public List<Role> getAllRoles() {

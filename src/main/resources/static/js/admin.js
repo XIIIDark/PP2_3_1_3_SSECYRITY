@@ -1,5 +1,5 @@
-let URL = "http://localhost:8085/api/users";
-const roleUrl = 'http://localhost:8085/api/roles';
+let URL = "http://localhost:8085/api/admin/users";
+const roleUrl = 'http://localhost:8085/api/admin/roles';
 
 
 // получаем роли с сервера
